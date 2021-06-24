@@ -7,29 +7,41 @@ namespace RPG
     {
         static void Main(string[] args)
         {
-            List<Personaje> personajes = new List<Personaje>();
+            Random random = new Random();
+
+            int nroPlayers;
+            string valorIngresado;
+            Personaje player1, player2;
+            List<Personaje> players = new List<Personaje>();
             CreadorDePje creadorDePje = new CreadorDePje();
-            Personaje player1 = creadorDePje.CrearPjeAleatorio();
-            Personaje player2 = creadorDePje.CrearPjeAleatorio();
-            Personaje player3 = creadorDePje.CrearPjeAleatorio();
-            Personaje player4 = creadorDePje.CrearPjeAleatorio();
-            personajes.Add(player1);
-            personajes.Add(player2);
-            personajes.Add(player3);
-            personajes.Add(player4);
-            foreach (Personaje personaje in personajes)
+            Gameplay nuevoJuego = new Gameplay();
+
+            do
+            {
+                Console.WriteLine("\nIngrese el numero de jugadores: ");
+                valorIngresado = Console.ReadLine();
+            } while (!int.TryParse(valorIngresado, out nroPlayers) || nroPlayers < 2);
+
+            for (int i = 0; i < nroPlayers; i++)
+            {
+                players.Add(creadorDePje.CrearPjeAleatorio());
+            }
+
+            foreach (Personaje personaje in players)
             {
                 personaje.MostrarPje();
             }
 
-            Gameplay nuevoJuego = new Gameplay();
-            nuevoJuego.Combate(personajes, 0, 1);
-            //foreach (Personaje personaje in personajes)
-            //{
-            //    personaje.MostrarPje();
-            //}
+            do
+            {
+                player1 = nuevoJuego.SeleccionarPlayer(players);
+                do
+                {
+                    player2 = nuevoJuego.SeleccionarPlayer(players);
+                } while (player1 == player2);
 
-
+                nuevoJuego.Combate(players, player1, player2);
+            } while (players.Count > 1);
         }
     }
 }

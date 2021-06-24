@@ -8,49 +8,54 @@ namespace RPG
     {
         readonly Random random = new Random();
 
-        public void Combate(List<Personaje> personajes, int player1, int player2)
+        public void Combate(List<Personaje> personajes, Personaje player1, Personaje player2)
         {
             int nroDeAtaques = 0;
 
             Console.WriteLine("\n////////////////////////////////////////////////////");
-            Console.WriteLine($"\n{personajes[player1].Nombre} vs {personajes[player2].Nombre}");
+            Console.WriteLine($"\n{player1.Nombre} vs {player2.Nombre}");
             Console.WriteLine("\nReady... GO!\n");
 
-            while (nroDeAtaques < 3 && personajes[player1].Salud > 0 && personajes[player2].Salud > 0)
+            while (nroDeAtaques < 3 && player1.Salud > 0 && player2.Salud > 0)
             {
-                personajes[player1].Atacar(personajes[player2]);
+                player1.Atacar(player2);
 
-                Console.WriteLine($"\nSalud {personajes[player2].Nombre}: {personajes[player2].Salud}");
+                Console.WriteLine($"\nSalud {player2.Nombre}: {player2.Salud}");
 
-                if (personajes[player2].Salud > 0)
+                if (player2.Salud > 0)
                 {
-                    personajes[player2].Atacar(personajes[player1]);
-                    Console.WriteLine($"\nSalud {personajes[player1].Nombre}: {personajes[player1].Salud}");
+                    player2.Atacar(player1);
+                    Console.WriteLine($"\nSalud {player1.Nombre}: {player1.Salud}");
                 }
 
                 nroDeAtaques++;
             }
 
-            if(personajes[player1].Salud > personajes[player2].Salud)
+            if(player1.Salud > player2.Salud)
             {
-                personajes[player1].SubirDeNivel();
+                player1.SubirDeNivel();
                 Console.WriteLine("\nGanador: ");
-                personajes[player1].MostrarPje();
-                personajes.RemoveAt(player2);                
+                player1.MostrarPje();
+                personajes.Remove(player2);                
             }
-            else if (personajes[player2].Salud > personajes[player1].Salud)
+            else if (player2.Salud > player1.Salud)
             {
-                personajes[player2].SubirDeNivel();
+                player2.SubirDeNivel();
                 Console.WriteLine("\nGanador: ");
-                personajes[player2].MostrarPje();
-                personajes.RemoveAt(player1);                
+                player2.MostrarPje();
+                personajes.Remove(player1);                
             }
             else
             {
                 Console.WriteLine("\nEmpate");
-                personajes[player1].Salud = 100;
-                personajes[player2].Salud = 100;
+                player1.Salud = 100;
+                player2.Salud = 100;
             }
+        }
+
+        public Personaje SeleccionarPlayer(List<Personaje> players)
+        {
+            return players[random.Next(0, players.Count)];
         }
     }
 }

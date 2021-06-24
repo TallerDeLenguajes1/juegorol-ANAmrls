@@ -59,12 +59,7 @@ namespace RPG
 
             return nuevoPje;
         }
-
-        //void ArmarListaDePjes(Personaje personajeX)
-        //{
-        //    personajes.Add(personajeX);
-        //}
-
+                
         //Generadores de datos y características aleatorios
         string GenerarNombreDePje()
         {
