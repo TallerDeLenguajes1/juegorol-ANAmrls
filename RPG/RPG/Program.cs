@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UsoDeAPI;
 
 namespace RPG
 {
@@ -42,6 +43,13 @@ namespace RPG
 
                 nuevoJuego.Combate(players, player1, player2);
             } while (players.Count > 1);
+
+            //Planetas opcionesDePlanetas = PlanetasAPI.ObtenerPlanetas();
+
+            //foreach (Result planeta in opcionesDePlanetas.Results)
+            //{
+            //    Console.WriteLine($"{planeta.Name}");
+            //}
         }
     }
 }
