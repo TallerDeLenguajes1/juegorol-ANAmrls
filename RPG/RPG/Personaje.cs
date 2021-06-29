@@ -34,18 +34,27 @@ namespace RPG
         private DateTime fechaNac;
         private int edad;
         private float salud;
+        private string planetaDeOrigen;
 
         public Personaje()
         {
 
         }
 
-        public Personaje(string nombre, string apodo, DateTime fechaNac, TipoPje tipo)
+        public Personaje(string nombre, string apodo, string planeta, DateTime fechaNac, TipoPje tipo)
         {
             Nombre = nombre;
             Apodo = apodo;
             FechaNac = fechaNac;
+            Edad = CreadorDePje.CalcularEdad(fechaNac);
             Tipo = tipo;
+            PlanetaDeOrigen = planeta;
+            Salud = 100;
+            Nivel = 1;
+            Velocidad = CreadorDePje.GenerarStatAleatorio(1, 10);
+            Destreza = CreadorDePje.GenerarStatAleatorio(1, 5);
+            Fuerza = CreadorDePje.GenerarStatAleatorio(1, 10);
+            Armadura = CreadorDePje.GenerarStatAleatorio(1, 10);
         }
 
         public void MostrarPje()
@@ -53,7 +62,8 @@ namespace RPG
             Console.WriteLine("\nDatos:");
             Console.WriteLine($"Nombre: {Nombre}");
             Console.WriteLine($"Apodo: {Apodo}");
-            Console.WriteLine($"Fecha de nacimiento: {FechaNac}");
+            Console.WriteLine($"Planeta de Origen: {PlanetaDeOrigen}");
+            Console.WriteLine($"Fecha de nacimiento: {FechaNac:d}");
             Console.WriteLine($"Edad: {Edad}");
             Console.WriteLine($"Tipo: {Tipo}");
             Console.WriteLine("\nCaracteristicas:");
@@ -133,5 +143,7 @@ namespace RPG
                 
             } 
         }
+
+        public string PlanetaDeOrigen { get => planetaDeOrigen; set => planetaDeOrigen = value; }
     }
 }

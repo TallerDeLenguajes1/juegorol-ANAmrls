@@ -11,10 +11,9 @@ namespace RPG
             Random random = new Random();
 
             int nroPlayers;
-            string valorIngresado;
+            string valorIngresado, opcionManual;
             Personaje player1, player2;
-            List<Personaje> players = new List<Personaje>();
-            CreadorDePje creadorDePje = new CreadorDePje();
+            List<Personaje> players = new List<Personaje>();            
             Gameplay nuevoJuego = new Gameplay();
 
             do
@@ -23,11 +22,28 @@ namespace RPG
                 valorIngresado = Console.ReadLine();
             } while (!int.TryParse(valorIngresado, out nroPlayers) || nroPlayers < 2);
 
-            for (int i = 0; i < nroPlayers; i++)
+            do
             {
-                players.Add(creadorDePje.CrearPjeAleatorio());
+                Console.WriteLine("\n - Para crear personajes de modo manual presione 'm'\n"
+                              + " - Para crear personajes de modo aleatorio presione 'r'");
+                opcionManual = Console.ReadLine();
+            } while (opcionManual != "m" && opcionManual != "M" && opcionManual != "r" && opcionManual != "R");
+                        
+            if (opcionManual == "r" || opcionManual == "R")
+            {
+                for (int i = 0; i < nroPlayers; i++)
+                {
+                    players.Add(CreadorDePje.CrearPjeAleatorio());
+                }
             }
-
+            else
+            {
+                for (int i = 0; i < nroPlayers; i++)
+                {
+                    players.Add(CreadorDePje.CrearPjeManualmente());
+                }
+            }
+            
             foreach (Personaje personaje in players)
             {
                 personaje.MostrarPje();
@@ -44,12 +60,6 @@ namespace RPG
                 nuevoJuego.Combate(players, player1, player2);
             } while (players.Count > 1);
 
-            //Planetas opcionesDePlanetas = PlanetasAPI.ObtenerPlanetas();
-
-            //foreach (Result planeta in opcionesDePlanetas.Results)
-            //{
-            //    Console.WriteLine($"{planeta.Name}");
-            //}
         }
     }
 }

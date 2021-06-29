@@ -12,39 +12,37 @@ namespace UsoDeAPI
     {
         public static Planetas ObtenerPlanetas()
         {
-        var url = $"https://swapi.dev/api/planets/";
-        var request = (HttpWebRequest)WebRequest.Create(url);
-        request.Method = "GET";
-        request.ContentType = "aplication/json";
-        request.Accept = "aplication/json";
-        Planetas planetasDisponibles;
-        planetasDisponibles = null;
 
-        try
-        {
-            using (WebResponse response = request.GetResponse())
+            var url = $"https://swapi.dev/api/planets/";
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+            Planetas planetasDisponibles = null;
+
+            try
             {
-                using (Stream strReader = response.GetResponseStream())
+                using (WebResponse response = request.GetResponse())
                 {
-                    if (strReader != null)
+                    using (Stream strReader = response.GetResponseStream())
                     {
-                        using (StreamReader objReader = new StreamReader(strReader))
+                        if (strReader != null)
                         {
-                            string responseBody = objReader.ReadToEnd();
-                            planetasDisponibles = JsonSerializer.Deserialize<Planetas>(responseBody);
-                        }
+                            using (StreamReader objReader = new StreamReader(strReader))
+                            {
+                                string responseBody = objReader.ReadToEnd();
+                                planetasDisponibles = JsonSerializer.Deserialize<Planetas>(responseBody);
+                            }
+                        }                        
                     }
                 }
             }
-        }
-        catch (WebException ex)
-        {
-                Console.WriteLine(ex.ToString());
+            catch (WebException ex)
+            {
+                // Handle error
+            }
 
-            //throw;
-        }
-
-        return planetasDisponibles;
+            return planetasDisponibles;
         }
     }     
 

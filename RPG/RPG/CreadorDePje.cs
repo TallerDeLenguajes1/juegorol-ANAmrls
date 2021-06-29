@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UsoDeAPI;
 
 namespace RPG
 {
@@ -34,13 +35,11 @@ namespace RPG
         Shaak_Ti
     }    
 
-    public class CreadorDePje
+    public static class CreadorDePje
     {
-        public List<Personaje> personajes = new List<Personaje>();
+        static readonly Random random = new Random();
 
-        readonly Random random = new Random();
-
-        public Personaje CrearPjeAleatorio()
+        public static Personaje CrearPjeAleatorio()
         {
             Personaje nuevoPje = new Personaje
             {
@@ -52,34 +51,71 @@ namespace RPG
                 Velocidad = GenerarStatAleatorio(1, 10),
                 Destreza = GenerarStatAleatorio(1, 5),
                 Fuerza = GenerarStatAleatorio(1, 10),
-                Armadura = GenerarStatAleatorio(1, 10)
+                Armadura = GenerarStatAleatorio(1, 10),
+                PlanetaDeOrigen = ObtenerPlanetaAleatorio()
             };
             nuevoPje.Apodo = GenerarApodoDePje(nuevoPje.Nombre);
             nuevoPje.Edad = CalcularEdad(nuevoPje.FechaNac);
 
             return nuevoPje;
         }
-                
+
+        public static Personaje CrearPjeManualmente()
+        {
+            string nombre, apodo, planeta;
+            DateTime fechaNac;
+            int opcionTipo, i = 1;
+            Array valuesTipoPje = Enum.GetValues(typeof(TipoPje));
+            TipoPje tipo;
+
+            Console.WriteLine("\nIngrese un nombre: ");
+            nombre = Console.ReadLine();
+            Console.WriteLine("\nIngrese un apodo: ");
+            apodo = Console.ReadLine();
+            Console.WriteLine("\nIngrese Planeta de origen: ");
+            planeta = Console.ReadLine();
+
+            do
+            {
+                Console.WriteLine("\nIngrese su fecha de nacimiento (mm/dd/aaaa): ");
+            } while (!DateTime.TryParse(Console.ReadLine(), out fechaNac));
+
+
+            do
+            {
+                Console.WriteLine("\nSeleccione un tipo de personaje:");
+                foreach (string tipoDePje in Enum.GetNames(typeof(TipoPje)))
+                {
+                    Console.WriteLine($"{i++} - {tipoDePje}");
+                }
+            } while (!int.TryParse(Console.ReadLine(), out opcionTipo));
+
+            tipo = (TipoPje)valuesTipoPje.GetValue(opcionTipo - 1);
+
+
+            return new Personaje(nombre, apodo, planeta, fechaNac, tipo);
+        }
+
         //Generadores de datos y características aleatorios
-        string GenerarNombreDePje()
+        static string GenerarNombreDePje()
         {
             Array valuesNombrePje = Enum.GetValues(typeof(NombrePje));
             return ((NombrePje)valuesNombrePje.GetValue(random.Next(valuesNombrePje.Length))).ToString();
         }
 
-        string GenerarApodoDePje(string nombre)
+        static string GenerarApodoDePje(string nombre)
         {
             int index = nombre.IndexOf("_") + 1;
             return nombre[index..];
         }
 
-        DateTime GenerarFechaNac()
+        static DateTime GenerarFechaNac()
         {
             TimeSpan years = new TimeSpan(random.Next(0, 301) * 365, 0, 0, 0);
             return DateTime.Now - years;
         }
 
-        int CalcularEdad(DateTime fechaNac)
+        public static int CalcularEdad(DateTime fechaNac)
         {
             DateTime hoy = DateTime.Now;
             int edad = hoy.Year - fechaNac.Year;
@@ -92,15 +128,22 @@ namespace RPG
             return edad;
         }
 
-        TipoPje GenerarTipoDePje()
+        static TipoPje GenerarTipoDePje()
         {
             Array valuesTipoPje = Enum.GetValues(typeof(TipoPje));
             return (TipoPje)valuesTipoPje.GetValue(random.Next(valuesTipoPje.Length));
         }
 
-        int GenerarStatAleatorio(int min, int max)
+        public static int GenerarStatAleatorio(int min, int max)
         {
             return random.Next(min, max + 1);
+        }
+
+        static string ObtenerPlanetaAleatorio()
+        {
+            Planetas opcionesDePlanetas = PlanetasAPI.ObtenerPlanetas();
+            int aux = opcionesDePlanetas.Results.Count;
+            return opcionesDePlanetas.Results[random.Next(0, aux)].Name;
         }
     }
 }
