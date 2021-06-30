@@ -8,27 +8,31 @@ namespace RPG
     {
         static void Main(string[] args)
         {
-            Random random = new Random();
-
+            Console.Title = "A Star Wars Game";            
             int nroPlayers;
             string valorIngresado, opcionManual;
             Personaje player1, player2;
             List<Personaje> players = new List<Personaje>();            
-            Gameplay nuevoJuego = new Gameplay();
+            
+            Vistas.MostrarInicio();
 
+            //Selección de la cantidad de jugadores
             do
             {
                 Console.WriteLine("\nIngrese el numero de jugadores: ");
                 valorIngresado = Console.ReadLine();
             } while (!int.TryParse(valorIngresado, out nroPlayers) || nroPlayers < 2);
 
+            //Selección del modo de crear los jugadores
             do
             {
-                Console.WriteLine("\n - Para crear personajes de modo manual presione 'm'\n"
-                              + " - Para crear personajes de modo aleatorio presione 'r'");
+                Console.WriteLine("\n- Para crear personajes de modo manual presione 'm'\n"
+                              + "- Para crear personajes de modo aleatorio presione 'a'");
                 opcionManual = Console.ReadLine();
-            } while (opcionManual != "m" && opcionManual != "M" && opcionManual != "r" && opcionManual != "R");
-                        
+            } while (opcionManual != "m" && opcionManual != "M"
+                     && opcionManual != "a" && opcionManual != "A");
+            
+            //Crear jugadores y añadirlos a una lista
             if (opcionManual == "r" || opcionManual == "R")
             {
                 for (int i = 0; i < nroPlayers; i++)
@@ -43,23 +47,18 @@ namespace RPG
                     players.Add(CreadorDePje.CrearPjeManualmente());
                 }
             }
-            
-            foreach (Personaje personaje in players)
-            {
-                personaje.MostrarPje();
-            }
 
+            //Desarrollo del juego
             do
             {
-                player1 = nuevoJuego.SeleccionarPlayer(players);
+                player1 = Gameplay.SeleccionarPlayer(players);
                 do
                 {
-                    player2 = nuevoJuego.SeleccionarPlayer(players);
+                    player2 = Gameplay.SeleccionarPlayer(players);
                 } while (player1 == player2);
 
-                nuevoJuego.Combate(players, player1, player2);
+                Gameplay.Combate(players, player1, player2);
             } while (players.Count > 1);
-
         }
     }
 }

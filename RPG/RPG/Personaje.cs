@@ -102,13 +102,13 @@ namespace RPG
             switch (aumentarStat)
             {
                 case 1:
-                    Velocidad += random.Next(1, 4);
+                    Velocidad += random.Next(1, 3);
                     break;
                 case 2:
-                    Fuerza += random.Next(1, 4);
+                    Fuerza += random.Next(1, 3);
                     break;
                 case 3:
-                    Armadura += random.Next(1, 4);
+                    Armadura += random.Next(1, 3);
                     break;
                 case 4:
                     Destreza += 1;
