@@ -33,7 +33,7 @@ namespace RPG
                      && opcionManual != "a" && opcionManual != "A");
             
             //Crear jugadores y añadirlos a una lista
-            if (opcionManual == "r" || opcionManual == "R")
+            if (opcionManual == "a" || opcionManual == "A")
             {
                 for (int i = 0; i < nroPlayers; i++)
                 {
