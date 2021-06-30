@@ -61,19 +61,19 @@ namespace RPG
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             string readyGo = @"
-                  .______       _______     ___       _______  ____    ____       
-                  |   _  \     |   ____|   /   \     |       \ \   \  /   /       
-                  |  |_)  |    |  |__     /  ^  \    |  .--.  | \   \/   /        
-                  |      /     |   __|   /  /_\  \   |  |  |  |  \_    _/         
-                  |  |\  \----.|  |____ /  _____  \  |  '--'  |    |  |  __ __ __ 
-                  | _| `._____||_______/__/     \__\ |_______/     |__| (__|__|__)
-                                                                        
-                                       _______   ______    __  
-                                      /  _____| /  __  \  |  | 
-                                     |  |  __  |  |  |  | |  | 
-                                     |  | |_ | |  |  |  | |  | 
-                                     |  |__| | |  `--'  | |__| 
-                                      \______|  \______/  (__) ";
+    .______       _______     ___       _______  ____    ____       
+    |   _  \     |   ____|   /   \     |       \ \   \  /   /       
+    |  |_)  |    |  |__     /  ^  \    |  .--.  | \   \/   /        
+    |      /     |   __|   /  /_\  \   |  |  |  |  \_    _/         
+    |  |\  \----.|  |____ /  _____  \  |  '--'  |    |  |  __ __ __ 
+    | _| `._____||_______/__/     \__\ |_______/     |__| (__|__|__)
+                                                                
+                         _______   ______    __  
+                        /  _____| /  __  \  |  | 
+                       |  |  __  |  |  |  | |  | 
+                       |  | |_ | |  |  |  | |  | 
+                       |  |__| | |  `--'  | |__| 
+                        \______|  \______/  (__) ";
             Console.WriteLine(readyGo);
             Console.ResetColor();
             Console.WriteLine("\nPresione una tecla para continuar");
@@ -82,7 +82,7 @@ namespace RPG
 
         public static void MostrarGanadorCombate(Personaje ganador)
         {
-            const int izq = -30, linea = 36;
+            const int izq = -27, linea = 36;
 
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -90,9 +90,9 @@ namespace RPG
             Console.BackgroundColor = ConsoleColor.Yellow;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine($"{"",linea}");
-            Console.WriteLine($"     {"Ganador:",izq} ");
-            Console.WriteLine($"     {ganador.Nombre,izq} ");
-            Console.WriteLine($"     {"Sube de Nivel!",izq} ");
+            Console.WriteLine($"        {"Ganador:",izq} ");
+            Console.WriteLine($"        {ganador.Nombre,izq} ");
+            Console.WriteLine($"        {"Sube de Nivel!",izq} ");
             Console.WriteLine($"{"",linea}");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -105,7 +105,7 @@ namespace RPG
 
         public static void MostrarEmpate()
         {
-            const int izq = -30, linea = 36;
+            const int izq = -27, linea = 36;
 
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -113,8 +113,8 @@ namespace RPG
             Console.BackgroundColor = ConsoleColor.Yellow;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine($"{"",linea}");
-            Console.WriteLine($"     {"Es un empate",izq} ");            
-            Console.WriteLine($"     {"Ambos recuperan la Salud!",izq} ");
+            Console.WriteLine($"       {"Es un empate",izq} ");            
+            Console.WriteLine($"       {"Ambos recuperan la Salud!",izq} ");
             Console.WriteLine($"{"",linea}");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -124,11 +124,11 @@ namespace RPG
             Console.ReadKey();
         }
 
-        public static void MostrarInicio()
+        public static void MostrarTitulo()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
-            string readyGo = @"        ___              _______.___________.    ___      .______      
+            string titulo = @"        ___              _______.___________.    ___      .______      
        /   \            /       |           |   /   \     |   _  \     
       /  ^  \          |   (----`---|  |----`  /  ^  \    |  |_)  |    
      /  /_\  \          \   \       |  |      /  /_\  \   |      /     
@@ -149,10 +149,60 @@ namespace RPG
                |  |__| |  /  _____  \  |  |  |  | |  |____ 
                 \______| /__/     \__\ |__|  |__| |_______|
 ";
-            Console.WriteLine(readyGo);
+            Console.WriteLine(titulo);
+            Console.ResetColor();            
+        }
+
+        public static void MostrarGanadorJuego(Personaje ganador)
+        {
+            const int izq = -27, linea = 36;
+
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n=====================================");
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine($"{"",linea}");
+            Console.WriteLine($"        {"El Ganador es:",izq} ");
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
+            Console.WriteLine($"        {ganador.Nombre,izq} ");          
+            Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
+            Console.WriteLine("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            Console.WriteLine($"{"",linea}");
             Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("=====================================");
+            Console.ResetColor();
+            ganador.MostrarPje();
             Console.WriteLine("\nPresione una tecla para continuar");
             Console.ReadKey();
+        }
+
+        public static void MostrarFinDeJuego()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            string gameOver = @"
+   _______      ___      .___  ___.  _______ 
+  /  _____|    /   \     |   \/   | |   ____|
+ |  |  __     /  ^  \    |  \  /  | |  |__   
+ |  | |_ |   /  /_\  \   |  |\/|  | |   __|  
+ |  |__| |  /  _____  \  |  |  |  | |  |____ 
+  \______| /__/     \__\ |__|  |__| |_______|
+                                             
+   ______   ____    ____  _______ .______      
+  /  __  \  \   \  /   / |   ____||   _  \     
+ |  |  |  |  \   \/   /  |  |__   |  |_)  |    
+ |  |  |  |   \      /   |   __|  |      /     
+ |  `--'  |    \    /    |  |____ |  |\  \----.
+  \______/      \__/     |_______|| _| `._____|
+                                              
+";
+            Console.WriteLine(gameOver);
+            Console.ResetColor();
+            Console.WriteLine("\nDesea jugar de nuevo? s/n");
         }
     }
 }
