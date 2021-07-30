@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UsoDeAPI;
 
 namespace RPG
@@ -37,8 +38,10 @@ namespace RPG
                 //Crear jugadores y añadirlos a una lista
                 if (modoCreacionJugador == "a" || modoCreacionJugador == "A")
                 {
+                    Console.WriteLine("\nCargando personajes...");
+
                     for (int i = 0; i < nroPlayers; i++)
-                    {
+                    {                        
                         players.Add(CreadorDePje.CrearPjeAleatorio());
                     }
                 }
@@ -64,6 +67,8 @@ namespace RPG
                 } while (players.Count > 1);
 
                 Vistas.MostrarGanadorJuego(players[0]);
+                Gameplay.GuardarGanadorCSV(players[0], @"..\..\..\..\Ganador del Juego.csv");
+                Gameplay.GuardarGanadorJson(players[0], @"..\..\..\..\Ganador del Juego.Json");
                 players.Clear();
                 Vistas.MostrarFinDeJuego();
 
