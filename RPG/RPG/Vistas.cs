@@ -204,5 +204,33 @@ namespace RPG
             Console.ResetColor();
             Console.WriteLine("\nDesea jugar de nuevo? s/n");
         }
+
+        public static void MostrarRanking()
+        {
+            List<Personaje> ranking = Gameplay.LeerJson(@"..\..\..\..\Ganador del Juego.Json");
+            const int der = 25, izq = -25, medio = -20, linea = 74;
+            int i = 1;
+
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n==========================================================================");
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine($"{"",linea}");
+            Console.WriteLine($" {"Puesto",izq} {"Nombre",medio} {"Nro de Victorias",der} ");
+            Console.WriteLine($"{"",linea}");
+            Console.ResetColor();
+
+            foreach (Personaje jugador in ranking)
+            {
+                Console.WriteLine($"\n {i++,izq} {jugador.Nombre,medio} {jugador.Nivel - 1,der}");
+            }
+            
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n==========================================================================");
+            Console.ResetColor();
+            Console.WriteLine("\nPresione una tecla para continuar");
+            Console.ReadKey();
+        }
     }
 }

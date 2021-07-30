@@ -10,15 +10,35 @@ namespace RPG
         static void Main(string[] args)
         {
             Console.Title = "A Star Wars Game";            
-            int nroPlayers;
-            string valorIngresado, modoCreacionJugador, jugarOtraVez;
+            int nroPlayers, menuInicial;
+            string valorIngresado, modoCreacionJugador, jugarOtraVez, opcionMenuInicial;
             Personaje player1, player2;
             List<Personaje> players = new List<Personaje>();            
             
-            Vistas.MostrarTitulo();
-
             do
             {
+                //Menú inicial
+                do
+                {
+                    do
+                    {
+                        Vistas.MostrarTitulo();
+
+                        Console.WriteLine("\nSeleccione una opcion: \n"
+                            + "1 - Ver ranking de victorias\n"
+                            + "2 - Iniciar Nueva Partida");
+                        opcionMenuInicial = Console.ReadLine();
+                    } while (!int.TryParse(opcionMenuInicial, out menuInicial) || menuInicial < 1 || menuInicial > 2);
+
+                    if (menuInicial == 1)
+                    {
+                        Vistas.MostrarRanking();
+                    }
+
+                } while (menuInicial != 2);
+
+                Vistas.MostrarTitulo();
+
                 //Selección de la cantidad de jugadores
                 do
                 {

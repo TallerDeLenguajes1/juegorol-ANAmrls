@@ -17,6 +17,7 @@ namespace RPG
 
             Vistas.MostrarCombatientes(player1, player2);
             Vistas.MostrarMjePreCombate();
+            Vistas.MostrarSaludCombatientes(player1, player2);
 
             while (nroDeAtaques < 3 && player1.Salud > 0 && player2.Salud > 0)
             {
@@ -70,17 +71,18 @@ namespace RPG
 
         public static void GuardarGanadorJson(Personaje ganador, string rutaDeArchivo)
         {
+            int topeRanking = 3;
             List<Personaje> historialGanadores;
 
             if (File.Exists(rutaDeArchivo))
             {
                 historialGanadores = LeerJson(rutaDeArchivo);
 
-                if (historialGanadores.Count == 3)
+                if (historialGanadores.Count == topeRanking)
                 {
-                    if (historialGanadores[0].Nivel <= ganador.Nivel)
+                    if (historialGanadores[topeRanking - 1].Nivel <= ganador.Nivel)
                     {
-                        historialGanadores.RemoveAt(0);
+                        historialGanadores.RemoveAt(topeRanking - 1);
                         historialGanadores.Add(ganador);
                     }
                 }
@@ -128,8 +130,8 @@ namespace RPG
                     }
                 }
             }
-
-            return historialGanadores = historialGanadores.OrderBy(x => x.Nivel).ToList();
+            
+            return historialGanadores = historialGanadores.OrderByDescending(x => x.Nivel).ToList();
         }
     }
 }
