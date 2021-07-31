@@ -202,7 +202,8 @@ namespace RPG
 ";
             Console.WriteLine(gameOver);
             Console.ResetColor();
-            Console.WriteLine("\nDesea jugar de nuevo? s/n");
+            Console.WriteLine("\nPresione una tecla para volver al menú");
+            Console.ReadKey();
         }
 
         public static void MostrarRanking()
