@@ -111,7 +111,7 @@ namespace RPG
                     Armadura += random.Next(1, 3);
                     break;
                 case 4:
-                    Destreza += 1;
+                    Destreza++;
                     break;
                 default:
                     break;

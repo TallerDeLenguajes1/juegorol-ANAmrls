@@ -88,6 +88,7 @@ namespace RPG
                 {
                     Console.WriteLine($"{i++} - {tipoDePje}");
                 }
+
             } while (!int.TryParse(Console.ReadLine(), out opcionTipo));
 
             tipo = (TipoPje)valuesTipoPje.GetValue(opcionTipo - 1);

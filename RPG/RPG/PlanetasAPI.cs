@@ -39,7 +39,7 @@ namespace UsoDeAPI
             }
             catch (WebException ex)
             {
-                // Handle error
+                throw new Exception("Hubo un error con el servicio web");
             }
 
             return planetasDisponibles;

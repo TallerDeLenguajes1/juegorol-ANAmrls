@@ -209,12 +209,20 @@ namespace RPG
         public static void MostrarRanking()
         {
             List<Personaje> ranking = Gameplay.LeerJson(@"..\..\..\..\Ganador del Juego.Json");
-            const int der = 25, izq = -25, medio = -20, linea = 74;
+            const int der = 25, izq = -25, medio = -20, linea = -74;
             int i = 1;
 
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n==========================================================================");
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine($"{"",linea}");
+            Console.WriteLine($"{"                          Ranking de Ganadores",linea}");
+            Console.WriteLine($"{"",linea}");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("==========================================================================");
             Console.BackgroundColor = ConsoleColor.Yellow;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine($"{"",linea}");
